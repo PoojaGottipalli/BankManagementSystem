@@ -12,7 +12,7 @@ public class Pin extends JFrame implements ActionListener {
     Pin(String pin){
         this.pin =pin;
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm2.png"));
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/atm2.png"));
         Image i2 = i1.getImage().getScaledInstance(1550,830,Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
         JLabel l3 = new JLabel(i3);
@@ -89,11 +89,11 @@ public class Pin extends JFrame implements ActionListener {
                 return;
             }
             if (e.getSource()==b1){
-                if (new String(p1.getPassword()).equals("")){
+                if (pin1.equals("")){
                     JOptionPane.showMessageDialog(null,"Enter New PIN");
                     return;
                 }
-                if (new String(p2.getPassword()).equals("")){
+                if (pin2.equals("")){
                     JOptionPane.showMessageDialog(null,"Re-Enter New PIN");
                     return;
                 }

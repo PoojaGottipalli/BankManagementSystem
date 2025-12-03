@@ -1,18 +1,14 @@
 package Bank.management.system;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
+
 public class Conn {
     Connection connection;
     Statement statement;
-    
-    public Conn(){
-        try{
-            connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankmanagementsystem","root","Pooja@2005");
-            statement=connection.createStatement();
-
-        }
-        catch(Exception e){
+    public Conn() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankSystem", "root", "Pooja@2005");
+            statement = connection.createStatement();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

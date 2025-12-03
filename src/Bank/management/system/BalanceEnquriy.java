@@ -1,17 +1,16 @@
 package Bank.management.system;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class BalanceEnquiry extends JFrame implements ActionListener {
+public class BalanceEnquriy extends JFrame implements ActionListener {
 
     String pin;
     JLabel label2;
     JButton b1;
-    BalanceEnquiry(String pin){
+    BalanceEnquriy(String pin){
         this.pin =pin;
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/atm2.png"));
@@ -70,6 +69,6 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new BalanceEnquiry("");
+        new BalanceEnquriy("");
     }
 }

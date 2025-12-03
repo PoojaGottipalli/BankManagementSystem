@@ -1,12 +1,13 @@
 package Bank.management.system;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Signup2 extends JFrame implements ActionListener {
-    JComboBox comboBox,comboBox2,comboBox3,comboBox4,comboBox5;
+    JComboBox<String> comboBox,comboBox2,comboBox3,comboBox4,comboBox5;
     JTextField textPan,textAadhar;
     JRadioButton r1,r2, e1,e2;
     JButton next;
@@ -38,8 +39,8 @@ public class Signup2 extends JFrame implements ActionListener {
         l3.setBounds(100,120,100,30);
         add(l3);
 
-        String religion[] = {"Hindu","Muslim","Sikh", "Christian", "Other"};
-        comboBox = new JComboBox(religion);
+    String[] religion = {"Hindu","Muslim","Sikh", "Christian", "Other"};
+    comboBox = new JComboBox<String>(religion);
         comboBox.setBackground(new Color(252,208,76));
         comboBox.setFont(new Font("Raleway",Font.BOLD,14));
         comboBox.setBounds(350,120,320,30);
@@ -50,8 +51,8 @@ public class Signup2 extends JFrame implements ActionListener {
         l4.setBounds(100,170,100,30);
         add(l4);
 
-        String Category [] = {"General","OBC","SC", "ST", "Other"};
-        comboBox2 = new JComboBox(Category);
+    String[] Category = {"General","OBC","SC", "ST", "Other"};
+    comboBox2 = new JComboBox<String>(Category);
         comboBox2.setBackground(new Color(252,208,76));
         comboBox2.setFont(new Font("Raleway",Font.BOLD,14));
         comboBox2.setBounds(350,170,320,30);
@@ -62,8 +63,8 @@ public class Signup2 extends JFrame implements ActionListener {
         l5.setBounds(100,220,100,30);
         add(l5);
 
-        String income [] = {"Null","<1,50,000","<2,50,000", "5,00,000", "Uptp 10,00,000","Above 10,00,000"};
-        comboBox3 = new JComboBox(income);
+    String[] income = {"Null","<1,50,000","<2,50,000", "5,00,000", "Uptp 10,00,000","Above 10,00,000"};
+    comboBox3 = new JComboBox<String>(income);
         comboBox3.setBackground(new Color(252,208,76));
         comboBox3.setFont(new Font("Raleway",Font.BOLD,14));
         comboBox3.setBounds(350,220,320,30);
@@ -74,8 +75,8 @@ public class Signup2 extends JFrame implements ActionListener {
         l6.setBounds(100,270,150,30);
         add(l6);
 
-        String educational [] = {"Non-Graduate","Graduate","Post-Graduate", "Doctrate", "Others"};
-        comboBox4 = new JComboBox(educational);
+    String[] educational = {"Non-Graduate","Graduate","Post-Graduate", "Doctrate", "Others"};
+    comboBox4 = new JComboBox<String>(educational);
         comboBox4.setBackground(new Color(252,208,76));
         comboBox4.setFont(new Font("Raleway",Font.BOLD,14));
         comboBox4.setBounds(350,270,320,30);
@@ -87,8 +88,8 @@ public class Signup2 extends JFrame implements ActionListener {
         l7.setBounds(100,340,150,30);
         add(l7);
 
-        String Occupation [] = {"Salaried","Self-Employed","Business", "Student", "Retired", "Other"};
-        comboBox5 = new JComboBox(Occupation);
+    String[] Occupation = {"Salaried","Self-Employed","Business", "Student", "Retired", "Other"};
+    comboBox5 = new JComboBox<String>(Occupation);
         comboBox5.setBackground(new Color(252,208,76));
         comboBox5.setFont(new Font("Raleway",Font.BOLD,14));
         comboBox5.setBounds(350,340,320,30);
@@ -130,9 +131,7 @@ public class Signup2 extends JFrame implements ActionListener {
         r2.setBackground(new Color(252,208,76));
         r2.setBounds(460,490,100,30);
         add(r2);
-        ButtonGroup seniorGroup = new ButtonGroup();
-        seniorGroup.add(r1);
-        seniorGroup.add(r2);
+
         JLabel l11 = new JLabel("Existing Account : ");
         l11.setFont(new Font("Raleway", Font.BOLD,18));
         l11.setBounds(100,540,180,30);
@@ -148,9 +147,6 @@ public class Signup2 extends JFrame implements ActionListener {
         e2.setBackground(new Color(252,208,76));
         e2.setBounds(460,540,100,30);
         add(e2);
-        ButtonGroup existingGroup = new ButtonGroup();
-        existingGroup.add(e1);
-        existingGroup.add(e2);
 
         JLabel l12 = new JLabel("Form No : ");
         l12.setFont(new Font("Raleway", Font.BOLD,14));
@@ -186,33 +182,33 @@ public class Signup2 extends JFrame implements ActionListener {
         String edu = (String) comboBox4.getSelectedItem();
         String occ = (String) comboBox5.getSelectedItem();
 
-        String pan = textPan.getText();
-        String addhar = textAadhar.getText();
+        String pan = textPan.getText().trim();
+        String addhar = textAadhar.getText().trim();
 
-        String scitizen = " ";
-        if ((r1.isSelected())){
+        String scitizen = null;
+        if (r1.isSelected()){
             scitizen = "Yes";
         } else if (r2.isSelected()) {
             scitizen ="No";
         }
-        String eAccount = " ";
-        if ((e1.isSelected())){
+        String eAccount = null;
+        if (e1.isSelected()){
             eAccount = "Yes";
         } else if (e2.isSelected()) {
             eAccount ="No";
         }
 
         try{
-            if (textPan.getText().equals("") || textAadhar.getText().equals("")){
+            // Check all required fields
+            if (rel == null || cate == null || inc == null || edu == null || occ == null || pan.equals("") || addhar.equals("") || scitizen == null || eAccount == null) {
                 JOptionPane.showMessageDialog(null,"Fill all the fields");
-            }else {
-                Conn c = new Conn() ;
+            } else {
+                Conn c = new Conn();
                 String q = "insert into Signuptwo values('"+formno+"', '"+rel+"', '"+cate+"','"+inc+"','"+edu+"','"+occ+"','"+pan+"','"+addhar+"','"+scitizen+"','"+eAccount+"')";
                 c.statement.executeUpdate(q);
                 new Signup3(formno);
                 setVisible(false);
             }
-
 
         }catch (Exception E){
             E.printStackTrace();

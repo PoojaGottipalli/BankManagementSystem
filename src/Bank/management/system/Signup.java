@@ -193,9 +193,13 @@ public class Signup extends JFrame implements ActionListener {
 
         String formno = first;
         String name = textName.getText();
-        String fname = textFname.getText();
-        // Get date from JSpinner
-        String dob = ((JSpinner.DateEditor) dateSpinner.getEditor()).getFormat().format((Date) dateSpinner.getValue());
+        String father_name = textFname.getText();
+        // Fix unchecked cast warning
+        Object editor = dateSpinner.getEditor();
+        String DOB = "";
+        if (editor instanceof JSpinner.DateEditor) {
+            DOB = ((JSpinner.DateEditor) editor).getFormat().format((Date) dateSpinner.getValue());
+        }
         String gender = null;
         if (r1.isSelected()) {
             gender = "Male";
@@ -203,13 +207,13 @@ public class Signup extends JFrame implements ActionListener {
             gender = "Female";
         }
         String email = textEmail.getText();
-        String marital = null;
+        String marital_status = null;
         if (m1.isSelected()) {
-            marital = "Married";
+            marital_status = "Married";
         } else if (m2.isSelected()) {
-            marital = "Unmarried";
+            marital_status = "Unmarried";
         } else if (m3.isSelected()) {
-            marital = "Other";
+            marital_status = "Other";
         }
 
         String address = textAdd.getText();
@@ -218,11 +222,12 @@ public class Signup extends JFrame implements ActionListener {
         String state = textState.getText();
 
         try {
-            if (textName.getText().equals("")) {
+            // Check all required fields
+            if (name.equals("") || father_name.equals("") || DOB.equals("") || gender == null || email.equals("") || marital_status == null || address.equals("") || city.equals("") || pincode.equals("") || state.equals("")) {
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
             } else {
                 Conn con1= new Conn();
-                String q = "insert into signup values('" + formno + "', '" + name + "','" + fname + "','" + dob + "','" + gender + "','" + email + "','" + marital + "', '" + address + "', '" + city + "','" + pincode + "','" + state + "' )";
+                String q = "insert into signup (form_no, name, father_name, DOB, gender, email, marital_status, address, city, pincode, state) values('" + formno + "', '" + name + "','" + father_name + "','" + DOB + "','" + gender + "','" + email + "','" + marital_status + "', '" + address + "', '" + city + "','" + pincode + "','" + state + "' )";
                 con1.statement.executeUpdate(q);
                 new Signup2(first);
                 setVisible(false);
@@ -230,6 +235,7 @@ public class Signup extends JFrame implements ActionListener {
 
         } catch (Exception E) {
             E.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + E.getMessage());
         }
 
     }
